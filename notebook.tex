@@ -1,0 +1,596 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Data Audit}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{from} \PY{n+nn}{pathlib} \PY{k}{import} \PY{n}{Path}
+        \PY{k+kn}{from} \PY{n+nn}{abc} \PY{k}{import} \PY{n}{ABC}\PY{p}{,} \PY{n}{abstractmethod}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} create an interface}
+        \PY{k}{class} \PY{n+nc}{DiscrepanciesInterface}\PY{p}{(}\PY{n}{ABC}\PY{p}{)}\PY{p}{:}
+            \PY{n+nd}{@abstractmethod}
+            \PY{k}{def} \PY{n+nf}{uploading\PYZus{}discrepancies}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{path\PYZus{}raw\PYZus{}csv}\PY{p}{:} \PY{n}{Path}\PY{p}{,} \PY{n}{path\PYZus{}database\PYZus{}A}\PY{p}{:} \PY{n}{Path}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{:}
+                \PY{k}{pass}
+            \PY{n+nd}{@abstractmethod}
+            \PY{k}{def} \PY{n+nf}{streaming\PYZus{}discrepancies}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{path\PYZus{}database\PYZus{}A}\PY{p}{:} \PY{n}{Path}\PY{p}{,} \PY{n}{path\PYZus{}database\PYZus{}B}\PY{p}{:} \PY{n}{Path}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{:}
+                \PY{k}{pass}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{class} \PY{n+nc}{Discrepancies}\PY{p}{(}\PY{n}{DiscrepanciesInterface}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{uploading\PYZus{}discrepancies}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{path\PYZus{}raw\PYZus{}csv}\PY{p}{:} \PY{n}{Path}\PY{p}{,} \PY{n}{path\PYZus{}database\PYZus{}A}\PY{p}{:} \PY{n}{Path}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{:}
+                \PY{k}{try}\PY{p}{:}
+                    \PY{n}{df\PYZus{}raw} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{path\PYZus{}raw\PYZus{}csv}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                    \PY{n}{df\PYZus{}db\PYZus{}a} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{path\PYZus{}database\PYZus{}A}\PY{p}{)}
+                    
+                    \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Transform raw csv data from wide to longitude and attach col headers similar to db A \PYZdq{}\PYZdq{}\PYZdq{}}
+                    
+                    \PY{c+c1}{\PYZsh{} Fill missing values with 0}
+                    \PY{n}{df\PYZus{}raw} \PY{o}{=} \PY{n}{df\PYZus{}raw}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)} 
+                    \PY{c+c1}{\PYZsh{} We use Stack to transform the DataFrame and reset the index}
+                    \PY{n}{melted\PYZus{}df} \PY{o}{=} \PY{n}{df\PYZus{}raw}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+                    
+                    \PY{c+c1}{\PYZsh{} Rename the columns}
+                    \PY{n}{melted\PYZus{}df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deliveryDate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farmerId}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                    \PY{c+c1}{\PYZsh{} Reorder the columns to match db A}
+                    \PY{n}{melted\PYZus{}df} \PY{o}{=} \PY{n}{melted\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farmerId}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deliveryDate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+                    
+                    \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Compare Transformed raw csv and db A involved in the Upload process\PYZdq{}\PYZdq{}\PYZdq{}}
+                    
+                    \PY{c+c1}{\PYZsh{}merge two dfs and return those that are not on both}
+                    \PY{n}{result} \PY{o}{=} \PY{n}{melted\PYZus{}df}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}db\PYZus{}a}\PY{p}{,} \PY{n}{indicator}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{k}{lambda} \PY{n}{v}\PY{p}{:} \PY{n}{v}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}merge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                    \PY{k}{return} \PY{n}{result}
+                
+                \PY{k}{except} \PY{n+ne}{Exception} \PY{k}{as} \PY{n}{e}\PY{p}{:}
+                    \PY{k}{return} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}Error }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{type(e).\PYZus{}\PYZus{}name\PYZus{}\PYZus{}\PYZcb{} }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{str(e)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}   
+                
+            \PY{k}{def} \PY{n+nf}{streaming\PYZus{}discrepancies}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{path\PYZus{}database\PYZus{}A}\PY{p}{:} \PY{n}{Path}\PY{p}{,} \PY{n}{path\PYZus{}database\PYZus{}B}\PY{p}{:} \PY{n}{Path}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{:}
+                \PY{k}{try}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}compare db A and db B involved in the streaming process}
+                    \PY{n}{df\PYZus{}db\PYZus{}a} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{path\PYZus{}database\PYZus{}A}\PY{p}{)}
+                    \PY{n}{df\PYZus{}db\PYZus{}b} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{path\PYZus{}database\PYZus{}B}\PY{p}{)}
+                    
+                    \PY{n}{result} \PY{o}{=} \PY{n}{df\PYZus{}db\PYZus{}a}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}db\PYZus{}b}\PY{p}{,} \PY{n}{indicator}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{k}{lambda} \PY{n}{v}\PY{p}{:} \PY{n}{v}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}merge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                    \PY{k}{return} \PY{n}{result}
+                \PY{k}{except} \PY{n+ne}{Exception} \PY{k}{as} \PY{n}{e}\PY{p}{:}
+                    \PY{k}{return} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}Error }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{type(e).\PYZus{}\PYZus{}name\PYZus{}\PYZus{}\PYZcb{} }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{str(e)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}} 
+                    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{disc} \PY{o}{=} \PY{n}{Discrepancies}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}instantiate class}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{disc}\PY{o}{.}\PY{n}{uploading\PYZus{}discrepancies}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Raw\PYZus{}Data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Database\PYZus{}A.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}check discrepancies in uploading data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}                                     farmerId deliveryDate  quantity     \_merge
+        2       19fb0be7-b2b2-4038-80ba-42baabc21c0a   2019-01-01     149.0  left\_only
+        7       584c4094-a231-4c6d-9c49-63b7192bf8a1   2019-01-01      29.0  left\_only
+        15      82b77709-85cc-4a20-9893-cec85ff6d7bd   2019-01-01       0.0  left\_only
+        20      9eb16e61-5d1b-43c7-91bd-7849280e260f   2019-01-01       0.0  left\_only
+        22      573f09bd-c649-448a-b6c9-68f55cf8aa25   2019-01-01       0.0  left\_only
+        24      e1b85e0e-bbe8-42fc-a564-8d296e35af50   2019-01-01      59.0  left\_only
+        25      ff367fff-2f38-4146-bc0e-d5ca7230caf7   2019-01-01      84.0  left\_only
+        27      5633d279-21ce-46e9-b8f9-80db6b071904   2019-01-01     504.0  left\_only
+        41      64eca1f3-b712-467b-976b-107be26d8b18   2019-01-01       0.0  left\_only
+        44      3584558d-d6f2-4b7d-9769-1f8a751782ab   2019-01-01     141.0  left\_only
+        48      b5eb285b-fae0-4bde-bd32-afc9619c07a3   2019-01-01     747.0  left\_only
+        54      4b498bd4-5658-4800-9ae8-65180acc8f2c   2019-01-01     300.0  left\_only
+        55      86f2a01a-fd9b-413a-8458-738ec57b2970   2019-01-01       0.0  left\_only
+        57      13bcd844-c49b-4c9f-b924-882c58e5ec51   2019-01-01       0.0  left\_only
+        60      39e141a0-607b-4b80-a23d-540271f8bcfd   2019-01-01       0.0  left\_only
+        64      5833a225-7752-471a-8e1f-283ba6176c51   2019-01-01       0.0  left\_only
+        65      3390816a-63c2-4250-8d16-e081cb57f6a3   2019-01-01     139.0  left\_only
+        66      4ceed27f-1b18-4473-892c-8723442c3507   2019-01-01       0.0  left\_only
+        67      caa45b50-4d9d-4de3-bc3b-8e4384750251   2019-01-01       0.0  left\_only
+        68      45e02f44-d9a4-4dff-b11c-0b8be0d8b584   2019-01-01       0.0  left\_only
+        70      749b1fee-a4c5-4c49-af3c-952701e4b7b9   2019-01-01       0.0  left\_only
+        71      c9ae1a8b-52dd-4667-9b3c-fcf975a626e7   2019-01-01       0.0  left\_only
+        75      d619a04f-76a2-4d70-8c5c-f9a1f4a6a545   2019-01-01       0.0  left\_only
+        76      47e9ef48-799c-424e-99de-a0a68ecff0d1   2019-01-01       0.0  left\_only
+        77      c22306fa-b771-4c54-afab-0778ea5667b7   2019-01-01       0.0  left\_only
+        78      d6e5dc47-91c9-44e7-bbfe-fb42eeddb29a   2019-01-01       0.0  left\_only
+        79      3b2b8e35-21f9-4f74-a873-efb0ef3faf1d   2019-01-01       0.0  left\_only
+        82      41c2bcd6-2bfa-4be7-9bef-1832f2756768   2019-01-01       0.0  left\_only
+        84      b8c20b8c-da35-441b-af55-26ec32c684d0   2019-01-01       0.0  left\_only
+        86      630df0ec-de5a-45ba-ac5b-17758171a592   2019-01-01       0.0  left\_only
+        {\ldots}                                      {\ldots}          {\ldots}       {\ldots}        {\ldots}
+        174380  f2d1d469-fed4-45ca-ac2c-9ba07a7ecb01   2022-01-15       0.0  left\_only
+        174381  88723cb4-1d3e-4ee1-95ff-19421a87c41e   2022-01-15       0.0  left\_only
+        174382  15ac7909-50b0-4fdb-beb5-9d773786408e   2022-01-15       0.0  left\_only
+        174383  d65be89a-6e06-4b1e-8231-07088ff9070e   2022-01-15       0.0  left\_only
+        174384  77ba07cc-1333-48af-aeb0-9d633c2d0b52   2022-01-15       0.0  left\_only
+        174385  ec815cf3-8d98-4c9b-ac79-62b1d32945b0   2022-01-15       0.0  left\_only
+        174387  afea71bb-d733-418c-847a-60d5db57ff55   2022-01-15       0.0  left\_only
+        174388  3fa303d3-84d2-4fc9-9d11-1385be5b7b58   2022-01-15       0.0  left\_only
+        174390  fbc94d7f-3b65-4e66-8fd9-6f68e61e7044   2022-01-15       0.0  left\_only
+        174392  2f9d9a45-9b01-49ba-b25a-948aa611c472   2022-01-15       0.0  left\_only
+        174393  e3a2b390-6df7-415d-a2af-ba063333f683   2022-01-15       0.0  left\_only
+        174395  5f27cdf3-6c8b-4022-8f2f-82740bbed517   2022-01-15      68.0  left\_only
+        174397  1167a1e0-421e-4d44-8f25-9291ba95eb08   2022-01-15       0.0  left\_only
+        174398  62eb8c86-117c-436f-8d69-95e68579a0b4   2022-01-15       0.0  left\_only
+        174402  acb75fff-9168-40cb-9f58-23b35d9eaf3a   2022-01-15       0.0  left\_only
+        174403  afd6e467-263b-43c2-922d-2dfcbea28c66   2022-01-15       0.0  left\_only
+        174405  d88e3c2d-d981-41bd-9c2f-ce4a3e4cb672   2022-01-15     518.0  left\_only
+        174407  35b37e89-eb11-43ec-b622-6dd8f51db641   2022-01-15       0.0  left\_only
+        174409  cb4d211a-3cd9-410e-ab20-e7b096912790   2022-01-15       0.0  left\_only
+        174411  4b304df5-7ab3-4bff-ac5e-3a05ae847547   2022-01-15       0.0  left\_only
+        174414  40638063-a7bc-4727-a62b-3a99f5f80415   2022-01-15       0.0  left\_only
+        174415  01aadc39-f551-49a5-87b8-43c84dff0d76   2022-01-15       0.0  left\_only
+        174416  69581b79-269f-4e7a-8740-82dae97e833e   2022-01-15       0.0  left\_only
+        174417  e1a5e626-df06-4fa4-bb0d-8a6c6c749269   2022-01-15       0.0  left\_only
+        174419  68a8d97c-cfed-43b2-bb86-4db25e13a6c3   2022-01-15       0.0  left\_only
+        174421  1b000644-36f4-4e12-93d3-e6750179b51e   2022-01-15       0.0  left\_only
+        174422  418acdde-7afb-483e-8b08-f7f92fb330f8   2022-01-15       0.0  left\_only
+        174423  781c4cba-fd27-4fe4-a278-e19de81be2bf   2022-01-15       0.0  left\_only
+        174424  88ef55fa-219e-45db-b4cc-8f0049696d98   2022-01-15       0.0  left\_only
+        174425  45fc6235-a972-4057-a5b8-eef323bda0e5   2022-01-15       0.0  left\_only
+        
+        [76858 rows x 4 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Uploading Discrepancies:}
+        \PY{l+s+sd}{    The discrepancies in uploading data shows that raw csv file has extra rows and values not present in Database A indicated by}
+        \PY{l+s+sd}{    left\PYZus{}only merge. The left only merge col shows rows available in raw csv data that we merging to database A. There are no right\PYZus{}only}
+        \PY{l+s+sd}{    merges for this discrepancy.}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Action Points for correction:}
+        \PY{l+s+sd}{    1. Implement data integrity checks, such as checksums or hashing to ensure data isnot corrupted during the transmission process due to network issues}
+        \PY{l+s+sd}{    2. Implement a retry mechanism in your data transfer process to handle incomplete data transfer that occurs due to network interruptions or timeouts.}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} '\textbackslash{}n    Uploading Discrepancies:\textbackslash{}n    The discrepancies in uploading data shows that raw csv file has extra rows and values not present in Database A indicated by\textbackslash{}n    left\_only merge. The left only merge col shows rows available in raw csv data that we merging to database A. There are no right\_only\textbackslash{}n    merges for this discrepancy.\textbackslash{}n    \textbackslash{}n    Action Points for correction:\textbackslash{}n    1. Implement data integrity checks, such as checksums or hashing to ensure data isnot corrupted during the transmission process due to network issues\textbackslash{}n    2. Implement a retry mechanism in your data transfer process to handle incomplete data transfer that occurs due to network interruptions or timeouts.\textbackslash{}n'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{disc}\PY{o}{.}\PY{n}{streaming\PYZus{}discrepancies}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Database\PYZus{}A.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Database\PYZus{}B.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}check discrepancies in streaming data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}                                     farmerId deliveryDate  quantity  \textbackslash{}
+        1       dc7a4468-9eba-4f0d-aedd-c57189467f18   2021-08-04        91   
+        10      f05d1876-8002-4c38-a7a8-bbf94bcc0159   2021-07-15         8   
+        14      dc7a4468-9eba-4f0d-aedd-c57189467f18   2021-10-19       808   
+        25      58f674c2-662e-4d6e-84de-ed0c486a2a63   2020-05-15        54   
+        29      ad81ce4b-5686-4a6e-9d7a-d9a112834706   2021-02-15        31   
+        37      dc7a4468-9eba-4f0d-aedd-c57189467f18   2021-07-15       822   
+        44      34da3784-d47d-4459-97b5-4f6fc800a503   2019-06-21       107   
+        47      20a2cdfc-e506-4d2a-80f4-957299729790   2020-09-18       716   
+        52      9f78b129-d618-4d13-8e68-3adc922e8176   2020-06-15       178   
+        55      621a6f43-431c-4a08-aca2-2ec4553d82d3   2020-10-07       388   
+        56      60e00f14-6b52-466d-ab2b-023067b78472   2020-11-10       237   
+        79      acba7469-ced3-4dbb-818a-09c6cda733a5   2020-02-04       262   
+        89      4bfd270b-2ab1-46a2-80f0-b1fc40fce073   2021-08-20        61   
+        90      9f78b129-d618-4d13-8e68-3adc922e8176   2020-08-21        27   
+        91      24d5bbc9-9979-42d2-bc3b-89cb34a17eb1   2020-05-30       401   
+        131     112c0602-3515-472c-8e8a-7ef8fcef89ae   2021-02-13       591   
+        150     acba7469-ced3-4dbb-818a-09c6cda733a5   2021-02-02       375   
+        154     dc7a4468-9eba-4f0d-aedd-c57189467f18   2020-10-09       808   
+        160     acba7469-ced3-4dbb-818a-09c6cda733a5   2021-03-08        34   
+        164     afd6e467-263b-43c2-922d-2dfcbea28c66   2020-07-16        25   
+        168     58f674c2-662e-4d6e-84de-ed0c486a2a63   2021-07-31       258   
+        171     acba7469-ced3-4dbb-818a-09c6cda733a5   2021-06-02       267   
+        175     ad81ce4b-5686-4a6e-9d7a-d9a112834706   2020-09-12        22   
+        182     20a2cdfc-e506-4d2a-80f4-957299729790   2019-07-02        94   
+        183     58f674c2-662e-4d6e-84de-ed0c486a2a63   2019-06-09       296   
+        197     621a6f43-431c-4a08-aca2-2ec4553d82d3   2021-08-08       363   
+        201     9f78b129-d618-4d13-8e68-3adc922e8176   2021-03-07       176   
+        212     ad81ce4b-5686-4a6e-9d7a-d9a112834706   2021-07-06        33   
+        214     afd6e467-263b-43c2-922d-2dfcbea28c66   2021-04-25        33   
+        216     58f674c2-662e-4d6e-84de-ed0c486a2a63   2019-04-04        31   
+        {\ldots}                                      {\ldots}          {\ldots}       {\ldots}   
+        110242  3584558d-d6f2-4b7d-9769-1f8a751782ab   2020-07-22        26   
+        110243  c9ae1a8b-52dd-4667-9b3c-fcf975a626e7   2019-07-13        28   
+        110244  a235b83b-2308-4bb2-8f9c-e63e3d9df511   2020-11-11       833   
+        110245  3390816a-63c2-4250-8d16-e081cb57f6a3   2019-10-30       165   
+        110246  5f27cdf3-6c8b-4022-8f2f-82740bbed517   2019-09-23        67   
+        110247  584c4094-a231-4c6d-9c49-63b7192bf8a1   2019-06-05       234   
+        110248  584c4094-a231-4c6d-9c49-63b7192bf8a1   2019-06-08        47   
+        110249  584c4094-a231-4c6d-9c49-63b7192bf8a1   2019-02-26        25   
+        110250  3390816a-63c2-4250-8d16-e081cb57f6a3   2019-09-24       809   
+        110251  584c4094-a231-4c6d-9c49-63b7192bf8a1   2021-05-07       216   
+        110252  a235b83b-2308-4bb2-8f9c-e63e3d9df511   2021-04-15       843   
+        110253  b5eb285b-fae0-4bde-bd32-afc9619c07a3   2019-08-18       143   
+        110254  5633d279-21ce-46e9-b8f9-80db6b071904   2020-07-16        83   
+        110255  a235b83b-2308-4bb2-8f9c-e63e3d9df511   2020-03-11       858   
+        110256  d88e3c2d-d981-41bd-9c2f-ce4a3e4cb672   2020-12-07        56   
+        110257  a235b83b-2308-4bb2-8f9c-e63e3d9df511   2021-09-23       823   
+        110258  a235b83b-2308-4bb2-8f9c-e63e3d9df511   2020-06-09       116   
+        110259  f7cf47b8-886d-4094-8f2c-4a06914a0065   2020-06-27       215   
+        110260  4b498bd4-5658-4800-9ae8-65180acc8f2c   2019-05-21       274   
+        110261  c9ae1a8b-52dd-4667-9b3c-fcf975a626e7   2019-02-04        28   
+        110262  45e02f44-d9a4-4dff-b11c-0b8be0d8b584   2021-04-15       118   
+        110263  e1b85e0e-bbe8-42fc-a564-8d296e35af50   2020-07-06       420   
+        110264  1b000644-36f4-4e12-93d3-e6750179b51e   2019-10-28        73   
+        110265  b5eb285b-fae0-4bde-bd32-afc9619c07a3   2021-04-23       717   
+        110266  a235b83b-2308-4bb2-8f9c-e63e3d9df511   2021-04-16        90   
+        110267  a235b83b-2308-4bb2-8f9c-e63e3d9df511   2019-08-09       163   
+        110268  f7cf47b8-886d-4094-8f2c-4a06914a0065   2019-06-20       214   
+        110269  ec815cf3-8d98-4c9b-ac79-62b1d32945b0   2019-02-17       476   
+        110270  584c4094-a231-4c6d-9c49-63b7192bf8a1   2020-09-21        41   
+        110271  b5eb285b-fae0-4bde-bd32-afc9619c07a3   2019-08-29       747   
+        
+                    \_merge  
+        1        left\_only  
+        10       left\_only  
+        14       left\_only  
+        25       left\_only  
+        29       left\_only  
+        37       left\_only  
+        44       left\_only  
+        47       left\_only  
+        52       left\_only  
+        55       left\_only  
+        56       left\_only  
+        79       left\_only  
+        89       left\_only  
+        90       left\_only  
+        91       left\_only  
+        131      left\_only  
+        150      left\_only  
+        154      left\_only  
+        160      left\_only  
+        164      left\_only  
+        168      left\_only  
+        171      left\_only  
+        175      left\_only  
+        182      left\_only  
+        183      left\_only  
+        197      left\_only  
+        201      left\_only  
+        212      left\_only  
+        214      left\_only  
+        216      left\_only  
+        {\ldots}            {\ldots}  
+        110242  right\_only  
+        110243  right\_only  
+        110244  right\_only  
+        110245  right\_only  
+        110246  right\_only  
+        110247  right\_only  
+        110248  right\_only  
+        110249  right\_only  
+        110250  right\_only  
+        110251  right\_only  
+        110252  right\_only  
+        110253  right\_only  
+        110254  right\_only  
+        110255  right\_only  
+        110256  right\_only  
+        110257  right\_only  
+        110258  right\_only  
+        110259  right\_only  
+        110260  right\_only  
+        110261  right\_only  
+        110262  right\_only  
+        110263  right\_only  
+        110264  right\_only  
+        110265  right\_only  
+        110266  right\_only  
+        110267  right\_only  
+        110268  right\_only  
+        110269  right\_only  
+        110270  right\_only  
+        110271  right\_only  
+        
+        [29258 rows x 4 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Streaming Discrepancies:}
+        \PY{l+s+sd}{    The discrepancies in streaming data from db A to db B indicates that there are values present in db A that werenot transfered to}
+        \PY{l+s+sd}{    db B indicated by left\PYZus{}only. There are also values transfered to db B from db A that changed and so not similar to db A indicated}
+        \PY{l+s+sd}{    by right\PYZus{}only.}
+        \PY{l+s+sd}{    Some ways to handle streaming discrepancies}
+        \PY{l+s+sd}{    1. Thoroughly test data pipelines and processing logic to catch potential issues.}
+        \PY{l+s+sd}{    2. Data Quality Monitoring: Continuously monitor data quality and set up alerts for data anomalies}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} '\textbackslash{}n    Streaming Discrepancies:\textbackslash{}n'
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
